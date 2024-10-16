@@ -1,124 +1,137 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard con Tarjetas</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Product Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+    }
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #343a40;
+    }
+    .sidebar .nav-link {
+      color: white;
+    }
+    .sidebar .nav-link.active {
+      background-color: #007bff;
+    }
+    .content {
+      padding: 20px;
+      width: 100%;
+    }
+    .navbar {
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container-fluid">
-    <div class="row">
-
-      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
-        <div class="position-sticky">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link active text-white" href="#">
-                Home
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#">
-                Dashboard
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#">
-                Orders
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#">
-                Products
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="#">
-                Customers
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="#">Navbar scroll</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-            </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-            <div class="dropdown ms-3">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                mdo
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><a class="dropdown-item" href="#">Logout</a></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-
-        <div class="mt-4">
-          <div class="row">
-
-            <div class="col-md-4">
-              <div class="card">
-                <img src="https://via.placeholder.com/300" class="card-img-top" alt="JD">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="boot2.html" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="card">
-                <img src="https://via.placeholder.com/300" class="card-img-top" alt="JD">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="boot2.html" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="card">
-                <img src="https://via.placeholder.com/300" class="card-img-top" alt="JD">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="boot2.html" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
+  <!-- Sidebar -->
+  <div class="sidebar d-flex flex-column p-3">
+    <h4 class="text-light">Sidebar</h4>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="#" class="nav-link active" aria-current="page">
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link">Dashboard</a>
+      </li>
+      <li>
+        <a href="#" class="nav-link">Orders</a>
+      </li>
+      <li>
+        <a href="#" class="nav-link">Products</a>
+      </li>
+      <li>
+        <a href="#" class="nav-link">Customers</a>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
+        <img src="https://via.placeholder.com/32" alt="mdo" class="rounded-circle me-2">
+        <strong>mdo</strong>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark">
+        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="#">Log out</a></li>
+      </ul>
     </div>
   </div>
 
+  <div class="content">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar scroll</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+          <ul class="navbar-nav ms-3">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://via.placeholder.com/32" alt="Profile" class="rounded-circle">
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Tarjetas de los prodcutos -->
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      <?php
+        for ($i = 1; $i <= 6; $i++) {
+          $url = "https://pokeapi.co/api/v2/pokemon/$i";
+          $response = file_get_contents($url);
+          $pokemon = json_decode($response, true);
+
+          $name = ucfirst($pokemon['name']);
+          $image = $pokemon['sprites']['front_default'];
+          $description = "Height: " . $pokemon['height'] . " | Weight: " . $pokemon['weight'];
+      ?>
+      <div class="col">
+      <div class="card h-100">
+        <img src="<?php echo $image; ?>" class="card-img-top" alt="Product Image">
+        <div class="card-body">
+          <h5 class="card-title"><?php echo $name; ?></h5>
+          <p class="card-text"><?php echo $description; ?></p>
+          <a href="Details.html" class="btn btn-primary">View Details</a>
+        </div>
+      </div>
+      </div>
+      <?php
+      }
+      ?>
+      </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
