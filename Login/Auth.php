@@ -8,7 +8,7 @@ switch ($_POST["action"]) {
   case 'login':
     $authController = new Auth();
     $res = $authController->login($_POST["email"], $_POST["password"]);
-    print_r($res);
+    header('Location: productos.php');
     break;
 
   default:
