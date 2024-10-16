@@ -27,6 +27,14 @@
     .navbar {
       margin-bottom: 20px;
     }
+    .card {
+      display: flex;
+      flex-direction: column;
+    }
+    .card img {
+      object-fit: cover; /* Asegura que la imagen se recorte correctamente */
+      height: 200px; /* Fija una altura para las imágenes */
+    }
   </style>
 </head>
 <body>
@@ -35,22 +43,12 @@
     <h4 class="text-light">Sidebar</h4>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
-          Home
-        </a>
+        <a href="#" class="nav-link active" aria-current="page">Home</a>
       </li>
-      <li>
-        <a href="#" class="nav-link">Dashboard</a>
-      </li>
-      <li>
-        <a href="#" class="nav-link">Orders</a>
-      </li>
-      <li>
-        <a href="#" class="nav-link">Products</a>
-      </li>
-      <li>
-        <a href="#" class="nav-link">Customers</a>
-      </li>
+      <li><a href="#" class="nav-link">Dashboard</a></li>
+      <li><a href="#" class="nav-link">Orders</a></li>
+      <li><a href="#" class="nav-link">Products</a></li>
+      <li><a href="#" class="nav-link">Customers</a></li>
     </ul>
     <hr>
     <div class="dropdown">
@@ -105,32 +103,33 @@
       </div>
     </nav>
 
-    <!-- Tarjetas de los prodcutos -->
+    <!-- Tarjetas de los productos -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <?php
         for ($i = 1; $i <= 6; $i++) {
-          $url = "https://pokeapi.co/api/v2/pokemon/$i";
+          $url = "https://fakestoreapi.com/products/$i";
           $response = file_get_contents($url);
-          $pokemon = json_decode($response, true);
+          $product = json_decode($response, true);
 
-          $name = ucfirst($pokemon['name']);
-          $image = $pokemon['sprites']['front_default'];
-          $description = "Height: " . $pokemon['height'] . " | Weight: " . $pokemon['weight'];
+          $name = ucfirst($product['title']);
+          $image = $product['image'];
+          $description = "Descripcion: " . $product['description'] . " | Price: $" . $product['price'];
       ?>
       <div class="col">
-      <div class="card h-100">
-        <img src="<?php echo $image; ?>" class="card-img-top" alt="Product Image">
-        <div class="card-body">
-          <h5 class="card-title"><?php echo $name; ?></h5>
-          <p class="card-text"><?php echo $description; ?></p>
-          <a href="Details.html" class="btn btn-primary">View Details</a>
+        <div class="card h-100">
+          <img src="<?php echo $image; ?>" class="card-img-top" alt="Product Image">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title"><?php echo $name; ?></h5>
+            <p class="card-text"><?php echo $description; ?></p>
+            <a href="Details.html" class="btn btn-primary mt-auto">View Details</a>
+          </div>
         </div>
       </div>
-      </div>
       <?php
-      }
+        }
       ?>
-      </div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
