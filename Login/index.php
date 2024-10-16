@@ -60,15 +60,16 @@
       <div class="login-form">
         <img src="https://1000marcas.net/wp-content/uploads/2019/11/McDonalds-logo.png" alt="logo">
         <h3 class="text-end mb-4">Sign into your account</h3>
-        <form id="loginForm" method="POST" action="Auth.php">
+        <form rm id="loginForm" method="POST" action="Auth.php">
+          <input type="hidden" name="action" value="login">
           <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter email"  required>
+            <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" aria-label="email" required>
             <small class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password" required>
+            <input type="password" class="form-control" id="password" placeholder="Password" name="password" type="password" required>
           </div>
           <div class="form-check mb-3">
             <input type="checkbox" class="form-check-input" id="checkMeOut">
