@@ -7,8 +7,7 @@ if (!isset($_SESSION['api_token'])) {
 }
 
 $controller = new ProductController();
-$products = $controller->getProducts();  
-
+$products = $controller->getProducts();    
 ?>
 
 <!DOCTYPE html>
@@ -123,21 +122,21 @@ $products = $controller->getProducts();
     <button id="toggleFormButton" class="btn btn-primary mb-3">Add Product</button>
     
     <div id="addProductForm" class="hidden">
-      <form action="add_product.php" method="POST" class="mb-4">
-        <div class="mb-3">
-          <label for="productName" class="form-label">Product Name</label>
-          <input type="text" class="form-control" id="productName" name="name" required>
-        </div>
-        <div class="mb-3">
-          <label for="productDescription" class="form-label">Product Description</label>
-          <textarea class="form-control" id="productDescription" name="description" required></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="productImage" class="form-label">Product Image URL</label>
-          <input type="url" class="form-control" id="productImage" name="cover" required>
-        </div>
-        <button type="submit" class="btn btn-success">Confirm Add Product</button>
-        <button type="button" id="cancelButton" class="btn btn-secondary">Cancel</button>
+        <form action="add_product.php" method="POST" enctype="multipart/form-data" class="mb-4">
+          <div class="mb-3">
+              <label for="productName" class="form-label">Product Name</label>
+              <input type="text" class="form-control" id="productName" name="name" required>
+          </div>
+          <div class="mb-3">
+              <label for="productDescription" class="form-label">Product Description</label>
+              <textarea class="form-control" id="productDescription" name="description" required></textarea>
+          </div>
+          <div class="mb-3">
+              <label for="productImage" class="form-label">Product Image</label>
+              <input type="file" class="form-control" id="productImage" name="cover" required>
+          </div>
+          <button type="submit" class="btn btn-success">Confirm Add Product</button>
+          <button type="button" id="cancelButton" class="btn btn-secondary">Cancel</button>
       </form>
     </div>
 
