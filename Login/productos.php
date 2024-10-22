@@ -27,14 +27,6 @@
     .navbar {
       margin-bottom: 20px;
     }
-    .card {
-      display: flex;
-      flex-direction: column;
-    }
-    .card img {
-      object-fit: cover; /* Asegura que la imagen se recorte correctamente */
-      height: 200px; /* Fija una altura para las imágenes */
-    }
   </style>
 </head>
 <body>
@@ -44,11 +36,19 @@
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
         <a href="#" class="nav-link active" aria-current="page">Home</a>
+        </li>
+      <li>
+        <a href="#" class="nav-link">Dashboard</a>
       </li>
-      <li><a href="#" class="nav-link">Dashboard</a></li>
-      <li><a href="#" class="nav-link">Orders</a></li>
-      <li><a href="#" class="nav-link">Products</a></li>
-      <li><a href="#" class="nav-link">Customers</a></li>
+      <li>
+        <a href="#" class="nav-link">Orders</a>
+      </li>
+      <li>
+        <a href="#" class="nav-link">Products</a>
+      </li>
+      <li>
+        <a href="#" class="nav-link">Customers</a>
+      </li>
     </ul>
     <hr>
     <div class="dropdown">
@@ -103,34 +103,45 @@
       </div>
     </nav>
 
-    <!-- Tarjetas de los productos -->
+    <!-- Tarjetas de los prodcutos -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <?php
-        for ($i = 1; $i <= 6; $i++) {
-          $url = "https://fakestoreapi.com/products/$i";
-          $response = file_get_contents($url);
-          $product = json_decode($response, true);
+      include 'ProductController.php';  
+      
 
-          $name = ucfirst($product['title']);
-          $image = $product['image'];
-          $description = "Descripcion: " . $product['description'] . " | Price: $" . $product['price'];
-      ?>
-      <div class="col">
-        <div class="card h-100">
-          <img src="<?php echo $image; ?>" class="card-img-top" alt="Product Image">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title"><?php echo $name; ?></h5>
-            <p class="card-text"><?php echo $description; ?></p>
-            <a href="Details.html" class="btn btn-primary mt-auto">View Details</a>
+      if (session_status() === PHP_SESSION_NONE) {
+        session_start();  
+        }
+      
+        if (!isset($_SESSION['api_token'])) {
+            echo "Necesita iniciar sesion para ver los productos";
+            exit();
+        }
+      
+        $controller = new ProductController();
+        $products = $controller->getProducts($_SESSION['api_token']);  
+      
+        foreach ($products as $product) {
+            $name = $product->name; 
+            $image = $product->cover; 
+            $description = $product->description; 
+        ?>
+        <div class="col">
+          <div class="card h-100">
+            <img src="<?php echo $image; ?>" class="card-img-top" alt="Product Image">
+            <div class="card-body">
+              <h5 class="card-title"><?php echo $name; ?></h5>
+              <p class="card-text"><?php echo $description; ?></p>
+              <a href="Details.html" class="btn btn-primary">Ver detalles</a>
+            </div>
           </div>
         </div>
-      </div>
-      <?php
-        }
+        <?php
+      }
       ?>
     </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </div>
 </body>
 </html>
