@@ -1,3 +1,16 @@
+<?php
+include 'ProductController.php';  
+
+if (!isset($_SESSION['api_token'])) {
+    header("Location: index.php");
+    exit();
+}
+
+$controller = new ProductController();
+$products = $controller->getProducts();  
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,6 +40,9 @@
     .navbar {
       margin-bottom: 20px;
     }
+    .hidden {
+      display: none; 
+    }
   </style>
 </head>
 <body>
@@ -36,7 +52,7 @@
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
         <a href="#" class="nav-link active" aria-current="page">Home</a>
-        </li>
+      </li>
       <li>
         <a href="#" class="nav-link">Dashboard</a>
       </li>
@@ -103,45 +119,109 @@
       </div>
     </nav>
 
-    <!-- Tarjetas de los prodcutos -->
+    <h3>Add Product</h3>
+    <button id="toggleFormButton" class="btn btn-primary mb-3">Add Product</button>
+    
+    <div id="addProductForm" class="hidden">
+      <form action="add_product.php" method="POST" class="mb-4">
+        <div class="mb-3">
+          <label for="productName" class="form-label">Product Name</label>
+          <input type="text" class="form-control" id="productName" name="name" required>
+        </div>
+        <div class="mb-3">
+          <label for="productDescription" class="form-label">Product Description</label>
+          <textarea class="form-control" id="productDescription" name="description" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="productImage" class="form-label">Product Image URL</label>
+          <input type="url" class="form-control" id="productImage" name="cover" required>
+        </div>
+        <button type="submit" class="btn btn-success">Confirm Add Product</button>
+        <button type="button" id="cancelButton" class="btn btn-secondary">Cancel</button>
+      </form>
+    </div>
+
+    <!-- Editar producto -->
+    <div id="editProductForm" class="hidden">
+      <form action="edit_product.php" method="POST" class="mb-4">
+        <input type="hidden" id="editProductId" name="id">
+        <div class="mb-3">
+          <label for="editProductName" class="form-label">Product Name</label>
+          <input type="text" class="form-control" id="editProductName" name="name" required>
+        </div>
+        <div class="mb-3">
+          <label for="editProductDescription" class="form-label">Product Description</label>
+          <textarea class="form-control" id="editProductDescription" name="description" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="editProductImage" class="form-label">Product Image URL</label>
+          <input type="url" class="form-control" id="editProductImage" name="cover" required>
+        </div>
+        <button type="submit" class="btn btn-warning">Confirm Edit</button>
+        <button type="button" id="cancelEditButton" class="btn btn-secondary">Cancel</button>
+      </form>
+    </div>
+    
+    <!-- Tarjetas de los productos -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <?php
-      include 'ProductController.php';  
-      
-
-      if (session_status() === PHP_SESSION_NONE) {
-        session_start();  
-        }
-      
-        if (!isset($_SESSION['api_token'])) {
-            echo "Necesita iniciar sesion para ver los productos";
-            exit();
-        }
-      
-        $controller = new ProductController();
-        $products = $controller->getProducts($_SESSION['api_token']);  
-      
-        foreach ($products as $product) {
-            $name = $product->name; 
-            $image = $product->cover; 
-            $description = $product->description; 
-        ?>
-        <div class="col">
-          <div class="card h-100">
-            <img src="<?php echo $image; ?>" class="card-img-top" alt="Product Image">
-            <div class="card-body">
-              <h5 class="card-title"><?php echo $name; ?></h5>
-              <p class="card-text"><?php echo $description; ?></p>
-              <a href="Details.html" class="btn btn-primary">Ver detalles</a>
-            </div>
+      foreach ($products as $product) {
+          $name = $product->name; 
+          $image = $product->cover; 
+          $description = $product->description; 
+          $id = $product->id; 
+      ?>
+      <div class="col">
+        <div class="card h-100">
+          <img src="<?php echo $image; ?>" class="card-img-top" alt="Product Image">
+          <div class="card-body">
+            <h5 class="card-title"><?php echo $name; ?></h5>
+            <p class="card-text"><?php echo $description; ?></p>
+            <a href="Details.php?slug=<?php echo urlencode($product->slug); ?>&id=<?php echo $id; ?>" class="btn btn-primary">View Details</a>
+            <button class="btn btn-warning editButton" data-id="<?php echo $id; ?>" data-name="<?php echo $name; ?>" data-description="<?php echo $description; ?>" data-image="<?php echo $image; ?>">Edit</button>
+            <form action="delete_product.php" method="POST" style="display:inline;">
+              <input type="hidden" name="id" value="<?php echo $id; ?>">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
           </div>
         </div>
-        <?php
+      </div>
+      <?php
       }
       ?>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.getElementById('toggleFormButton').addEventListener('click', function() {
+        var form = document.getElementById('addProductForm');
+        form.classList.toggle('hidden');
+      });
+
+      document.getElementById('cancelButton').addEventListener('click', function() {
+        document.getElementById('addProductForm').classList.add('hidden');
+      });
+
+      document.getElementById('cancelEditButton').addEventListener('click', function() {
+        document.getElementById('editProductForm').classList.add('hidden');
+      });
+
+      document.querySelectorAll('.editButton').forEach(button => {
+        button.addEventListener('click', function() {
+          var id = this.dataset.id;
+          var name = this.dataset.name;
+          var description = this.dataset.description;
+          var image = this.dataset.image;
+
+          document.getElementById('editProductId').value = id;
+          document.getElementById('editProductName').value = name;
+          document.getElementById('editProductDescription').value = description;
+          document.getElementById('editProductImage').value = image;
+
+          document.getElementById('editProductForm').classList.remove('hidden');
+        });
+      });
+    </script>
   </div>
 </body>
 </html>
