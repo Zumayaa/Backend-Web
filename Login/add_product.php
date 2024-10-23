@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $response = json_decode($response);
 
         if (isset($response->data)) {
-            header("Location: products.php");
+            header("Location: products.php?message=Product+added+successfully");
         } else {
             echo "Error: " . $response->message;
         }

@@ -8,6 +8,10 @@ if (!isset($_SESSION['api_token'])) {
 
 $controller = new ProductController();
 $products = $controller->getProducts();    
+
+$productController = new ProductController();
+$productController->deleteProduct($product_id);
+
 ?>
 
 <!DOCTYPE html>
