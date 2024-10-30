@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteBase /
+
+RewriteRule ^home/?$ home.php [L]
+RewriteCond %{QUERY_STRING} ^slug=([^&]+)$
+RewriteRule ^product/?$ product.php?slug=%1 [L]
+RewriteRule ^auth/?$ app/AuthController.php [L]
+RewriteRule ^resources/?$ app/ProductController.php [L]
+
+<FilesMatch "\.(php|inc|config|sql)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
